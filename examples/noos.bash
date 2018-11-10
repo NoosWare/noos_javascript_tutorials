@@ -6,6 +6,11 @@ server='https://demo.noos.cloud:9001'
 username=`head -n 1 "${HOME}/.noos_credentials"`
 password=`tail -n 1 "${HOME}/.noos_credentials"`
 
+
+###############################################################################
+# COMPUTER VISION                                                             #
+###############################################################################
+
 # available services
 url="$server/available_services"
 echo $url
@@ -77,18 +82,69 @@ curl \
     -F "filename=@../data/cup.jpg" \
     $url 2> /dev/null | python -m json.tool
 
-# slam_with_lidar
-# $curl -F "json=@laser.json" $server/slam
+# qr_recognition
+url="$server/qr_recognition"
+echo $url
+curl \
+    -H "User-Token: ${username}" \
+    -H "Accept-Token: ${password}" \
+    -F "filename=@../data/qr_code.jpg" \
+    $url 2> /dev/null | python -m json.tool
+
+###############################################################################
+# ORB                                                                         #
+###############################################################################
+
+# orb_add_model
+
+# orb_del_model
+
+# orb_query
+
+###############################################################################
+# MOBILE ROBOTICS                                                             #
+###############################################################################
+
+# upload_slam_config_file
+url="$server/upload_slam_config_file"
+echo $url
+curl \
+    -H "User-Token: ${username}" \
+    -H "Accept-Token: ${password}" \
+    -F "json=@../data/upload_icp_file.json" \
+    $url 2> /dev/null | python -m json.tool
+
+# icp_slam_with_lidar
+url="$server/slam"
+echo $url
+curl \
+    -H "User-Token: ${username}" \
+    -H "Accept-Token: ${password}" \
+    -F "json=@../data/laser.json" \
+    $url 2> /dev/null | python -m json.tool
 
 # create_map
 
-# qr_recognition
-
 # get_map
 
-# orb_features
-
 # path_planning
+url="$server/path_planning"
+echo $url
+curl \
+    -H "User-Token: ${username}" \
+    -H "Accept-Token: ${password}" \
+    -F "json=@../data/path.json" \
+    $url 2> /dev/null | python -m json.tool
 
-# nlp_dialog_systems
+###############################################################################
+# DIALOGUE SYSTEM                                                             #
+###############################################################################
 
+# chat
+url="$server/chat"
+echo $url
+curl \
+    -H "User-Token: ${username}" \
+    -H "Accept-Token: ${password}" \
+    -F  'json={"state" : "hello", "filename" : ""}' \
+    $url 2> /dev/null | python -m json.tool

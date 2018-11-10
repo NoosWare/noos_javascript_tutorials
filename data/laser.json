@@ -1,6 +1,6 @@
 {
 	"map_name": "map",
-	"config_file": "config_file_name",
+	"config_file": "icp_config",
 	"laser": {
 		"sensor_pose": {
 			"position": {
