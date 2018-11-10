@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Basic example | Noos web app</title>
+</head>
+<body>
+    <form>
+        <input type="file" name="images" id="images" />
+        <button type="submit" id="btn">
+            Test face detection!
+        </button>
+    </form>
+    <div>
+        <p>
+            Please choose an image with a face to upload.
+            The results will display here. To check for errors,
+            please see the console by pressing `F12`.
+        </p>
+        <h2>Results:</h2>
+    </div>
+    <div id="result"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script>
+$('form').submit(function(e) {
+    e.preventDefault();
+    var form_data = new FormData($(this)[0]);
+
+    $.ajax({
+        url: 'https://demo.noos.cloud:9001/face_detection',
+        headers: {
+            'User-Token': 'f423989fe137f411e640425c65dba1351bc20e7dfdfe4036fe75f5fcdcaddf70',
+            'Accept-Token': 'fe199d14856e15d573edbe85f8f16e20c6579ffea030ea0ff3'
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        data: form_data,
+        processData: false,
+        contentType: false
+    }).done(function(json) {
+        $('#result').text(json);
+    }).fail(function(xhr, textStatus, errorThrown) {
+        $('#result').text('Error!');
+        console.log('xhr', xhr);
+        console.log('textStatus', textStatus);
+        console.log('errorThrown', errorThrown);
+    });
+});
+    </script>
+</body>
+</html>
