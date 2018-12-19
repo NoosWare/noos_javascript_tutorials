@@ -1,99 +1,139 @@
 #!/bin/bash
 
+function usage() {
+    echo 'Usage:'
+    echo '    $0 help'
+    echo '    $0 all'
+    echo '    $0 service'
+    echo ''
+    echo 'You can list the available services like so:'
+    echo '$0 available_services'
+}
+
+if [ $# -ne 1 ]; then
+    echo 'ERROR: no arguments given'
+    usage
+    exit 1
+fi
+
+if [ "$1" == "help" -o "$1" == "h" ]; then
+    usage
+    exit 0
+fi
+
+service="${1}"
+
 # setup
 set -e
 server='https://demo.noos.cloud:9001'
 username=`head -n 1 "${HOME}/.noos_credentials"`
 password=`tail -n 1 "${HOME}/.noos_credentials"`
 
-
-###############################################################################
-# COMPUTER VISION                                                             #
-###############################################################################
+##################################################
+# COMPUTER VISION                                #
+##################################################
 
 # available services
-url="$server/available_services"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'available_services' ]; then
+    url="$server/available_services"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # face_detection
-url="$server/face_detection"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/face.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'face_detection' ]; then
+    url="$server/face_detection"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/face.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # gender_detection
-url="$server/gender_detection"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/cropped_face.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'gender_detection' ]; then
+    url="$server/gender_detection"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/cropped_face.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # age_detection
-url="$server/age_detection"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/face.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'age_detection' ]; then
+    url="$server/age_detection"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/face.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # face_expression
-url="$server/face_expression"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/cropped_face.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'face_expression' ]; then
+    url="$server/face_expression"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/cropped_face.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # face_recognition
-url="$server/face_expression"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/cropped_face.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'face_expression' ]; then
+    url="$server/face_expression"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/cropped_face.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # human_detection
-url="$server/human_detection"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/human.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'human_detection' ]; then
+    url="$server/human_detection"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/human.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # object_recognition
-url="$server/object_recognition"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/cup.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'object_recognition' ]; then
+    url="$server/object_recognition"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/cup.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # qr_recognition
-url="$server/qr_recognition"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "filename=@../data/qr_code.jpg" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'qr_recognition' ]; then
+    url="$server/qr_recognition"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/qr_code.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
-###############################################################################
-# ORB                                                                         #
-###############################################################################
+##################################################
+# ORB                                            #
+##################################################
 
 # orb_add_model
 
@@ -101,50 +141,73 @@ curl \
 
 # orb_query
 
-###############################################################################
-# MOBILE ROBOTICS                                                             #
-###############################################################################
+##################################################
+# MOBILE ROBOTICS                                #
+##################################################
 
 # upload_slam_config_file
-url="$server/upload_slam_config_file"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "json=@../data/upload_icp_file.json" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'upload_slam_config_file' ]; then
+    url="$server/upload_slam_config_file"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "json=@../data/upload_icp_file.json" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
-# icp_slam_with_lidar
-url="$server/slam"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "json=@../data/laser.json" \
-    $url 2> /dev/null | python -m json.tool
-
-# create_map
+# slam
+if [ "${service}" == 'all' -o "${service}" == 'slam' ]; then
+    url="$server/slam"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "json=@../data/laser.json" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # get_map
+if [ "${service}" == 'all' -o "${service}" == 'get_map' ]; then
+    url="$server/get_map"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F 'json={"map_name": "map"}' \
+        $url 2> /dev/null | python -m json.tool > tmp
+
+        cat tmp
+        echo 'data:image/png;base64,' > image.b64
+        grep image tmp | cut -d '"' -f 4 >> image.b64
+        convert inline:image.b64 map.png
+        rm image.64 tmp
+fi
 
 # path_planning
-url="$server/path_planning"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F "json=@../data/path.json" \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'path_planning' ]; then
+    url="$server/path_planning"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "json=@../data/path.json" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
-###############################################################################
-# DIALOGUE SYSTEM                                                             #
-###############################################################################
+##################################################
+# DIALOGUE SYSTEM                                #
+##################################################
 
 # chat
-url="$server/chat"
-echo $url
-curl \
-    -H "User-Token: ${username}" \
-    -H "Accept-Token: ${password}" \
-    -F  'json={"state" : "hello", "filename" : ""}' \
-    $url 2> /dev/null | python -m json.tool
+if [ "${service}" == 'all' -o "${service}" == 'chat' ]; then
+    url="$server/chat"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F  'json={"state" : "hello", "filename" : ""}' \
+        $url 2> /dev/null | python -m json.tool
+fi
+
+exit 0

@@ -1,5 +1,3 @@
-'use strict'
-
 var exports = module.exports = {};
 
 var request = require('request');
@@ -34,9 +32,10 @@ function build_request(service, form_data) {
 function call(service, form_data, callback) {
     var options = build_request(service, form_data);
     request(options, callback);
+    return;
 }
 
-function call_with_image(service, path, callback) {
+function call_with_file(service, path, callback) {
     var form_data = {
         filename: (path, fs.createReadStream(path))
     };
@@ -47,58 +46,89 @@ exports.available_services = function(callback) {
     call('available_services', null, callback);
 }
 
+//////////////////////////////////////////////////
+// COMPUTER VISION                              //
+//////////////////////////////////////////////////
 exports.face_detection = function(path, callback) {
-    call_with_image('face_detection', path, callback);
+    call_with_file('face_detection', path, callback);
 }
 
 exports.gender_detection = function(path, callback) {
-    call_with_image('gender_detection', path, callback);
+    call_with_file('gender_detection', path, callback);
 }
 
 exports.age_detection = function(path, callback) {
-    call_with_image('age_detection', path, callback);
+    call_with_file('age_detection', path, callback);
 }
 
 exports.face_expression = function(path, callback) {
-    call_with_image('face_expression', path, callback);
+    call_with_file('face_expression', path, callback);
 }
 
 exports.face_recognition = function(path, callback) {
-    call_with_image('face_recognition', path, callback);
+    call_with_file('face_recognition', path, callback);
 }
 
 exports.human_detection = function(path, callback) {
-    call_with_image('human_detection', path, callback);
+    call_with_file('human_detection', path, callback);
 }
 
 exports.object_recognition = function(path, callback) {
-    call_with_image('object_recognition', path, callback);
-}
-
-exports.slam_with_lidar = function() {
-
-}
-
-exports.create_map = function() {
-
+    call_with_file('object_recognition', path, callback);
 }
 
 exports.qr_recognition = function() {
-
+    call_with_file('qr_recognition', path, callback);
 }
 
-exports.get_map = function() {
+//////////////////////////////////////////////////
+// ORB                                          //
+//////////////////////////////////////////////////
 
+
+// orb_add_model
+
+// orb_del_model
+
+// orb_query
+
+//////////////////////////////////////////////////
+// MOBILE ROBOTICS                              //
+//////////////////////////////////////////////////
+exports.upload_slam_config_file = function(path, callback) {
+    form_data = {
+        json: fs.readFileSync(path)
+    }
+    call('upload_slam_config_file', form_data, callback);
 }
 
-exports.orb_features = function() {
-
+exports.slam = function(path, callback) {
+    form_data = {
+        json: fs.readFileSync(path)
+    }
+    call('slam', form_data, callback);
 }
 
-exports.path_planning = function() {
-
+exports.get_map = function(callback) {
+    form_data = {
+        json: '{"map_name": "map"}'
+    }
+    call('get_map', form_data, callback);
 }
 
-exports.nlp_dialog_systems = function() {
+exports.path_planning = function(path, callback) {
+    form_data = {
+        json: fs.readFileSync(path)
+    }
+    call('path_planning', form_data, callback);
+}
 
+//////////////////////////////////////////////////
+// DIALOGUE_SYSTEMS                             //
+//////////////////////////////////////////////////
+exports.chat = function(sentence, path, callback) {
+    form_data = {
+        json: '{"state": "' + sentence + '", "filename": ""}'
+    }
+    call('chat', form_data, callback);
 }
