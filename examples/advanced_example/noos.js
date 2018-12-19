@@ -98,21 +98,21 @@ exports.qr_recognition = function() {
 exports.upload_slam_config_file = function(path, callback) {
     form_data = {
         json: fs.readFileSync(path)
-    }
+    };
     call('upload_slam_config_file', form_data, callback);
 }
 
 exports.slam = function(path, callback) {
     form_data = {
         json: fs.readFileSync(path)
-    }
+    };
     call('slam', form_data, callback);
 }
 
 exports.get_map = function(callback) {
     form_data = {
         json: '{"map_name": "map"}'
-    }
+    };
     call('get_map', form_data, callback);
 }
 
@@ -129,6 +129,6 @@ exports.path_planning = function(path, callback) {
 exports.chat = function(sentence, path, callback) {
     form_data = {
         json: '{"state": "' + sentence + '", "filename": ""}'
-    }
+    };
     call('chat', form_data, callback);
 }

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 function usage() {
     echo 'Usage:'
@@ -24,7 +25,6 @@ fi
 service="${1}"
 
 # setup
-set -e
 server='https://demo.noos.cloud:9001'
 username=`head -n 1 "${HOME}/.noos_credentials"`
 password=`tail -n 1 "${HOME}/.noos_credentials"`
@@ -136,10 +136,37 @@ fi
 ##################################################
 
 # orb_add_model
+if [ "${service}" == 'all' -o "${service}" == 'orb_add_model' ]; then
+    url="$server/orb_add_model"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/qr_code.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # orb_del_model
+if [ "${service}" == 'all' -o "${service}" == 'orb_del_model' ]; then
+    url="$server/orb_del_model"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/qr_code.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 # orb_query
+if [ "${service}" == 'all' -o "${service}" == 'orb_query' ]; then
+    url="$server/orb_query"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F "filename=@../data/qr_code.jpg" \
+        $url 2> /dev/null | python -m json.tool
+fi
 
 ##################################################
 # MOBILE ROBOTICS                                #
@@ -181,7 +208,18 @@ if [ "${service}" == 'all' -o "${service}" == 'get_map' ]; then
         echo 'data:image/png;base64,' > image.b64
         grep image tmp | cut -d '"' -f 4 >> image.b64
         convert inline:image.b64 map.png
-        rm image.64 tmp
+        rm image.b64 tmp
+fi
+
+# delete_map
+if [ "${service}" == 'all' -o "${service}" == 'delete_map' ]; then
+    url="$server/delete_map"
+    echo $url
+    curl \
+        -H "User-Token: ${username}" \
+        -H "Accept-Token: ${password}" \
+        -F 'json={"map_name": "map"}' \
+        $url 2> /dev/null | python -m json.tool > tmp
 fi
 
 # path_planning
