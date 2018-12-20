@@ -26,8 +26,8 @@ service="${1}"
 
 # setup
 server='https://demo.noos.cloud:9001'
-username=`head -n 1 "${HOME}/.noos_credentials"`
-password=`tail -n 1 "${HOME}/.noos_credentials"`
+username=`head -n 1 ".noos_credentials"`
+password=`tail -n 1 ".noos_credentials"`
 
 ##################################################
 # COMPUTER VISION                                #
