@@ -218,7 +218,7 @@ if [ "${service}" == 'all' -o "${service}" == 'delete_map' ]; then
     curl \
         -H "User-Token: ${username}" \
         -H "Accept-Token: ${password}" \
-        -F 'json={"map_name": "map"}' \
+        -F 'json={"name": "map"}' \
         $url 2> /dev/null | python -m json.tool > tmp
 fi
 
