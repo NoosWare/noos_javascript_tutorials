@@ -97,6 +97,10 @@ if (service == 'all' || service == 'get_map') {
     noos.get_map(log);
 }
 
+if (service == 'all' || service == 'delete_map') {
+    noos.delete_map(log);
+}
+
 if (service == 'all' || service == 'path_planning') {
     var path = __dirname + '/../../data/path.json';
     noos.path_planning(path, log);

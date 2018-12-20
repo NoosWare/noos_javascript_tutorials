@@ -116,6 +116,13 @@ exports.get_map = function(callback) {
     call('get_map', form_data, callback);
 }
 
+exports.delete_map = function(callback) {
+    form_data = {
+        json: '{"name": "map"}'
+    };
+    call('delete_map', form_data, callback);
+}
+
 exports.path_planning = function(path, callback) {
     form_data = {
         json: fs.readFileSync(path)
