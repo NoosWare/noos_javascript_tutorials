@@ -68,8 +68,8 @@ $(function() {
     $.post({
       url: 'https://demo.noos.cloud:9001/face-recognition',
       headers: {
-        'User-Token': 'f423989fe137f411e640425c65dba1351bc20e7dfdfe4036fe75f5fcdcaddf70',
-        'Accept-Token': 'fe199d14856e15d573edbe85f8f16e20c6579ffea030ea0ff3'
+        'User-Token': 'your_user',
+        'Accept-Token': 'your_password'
       },
       data: formData,
       processData: false,

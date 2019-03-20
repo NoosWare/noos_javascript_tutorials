@@ -30,20 +30,22 @@ $('form').submit(function(e) {
     e.preventDefault();
     var form_data = new FormData($(this)[0]);
 
-    $.ajax({
+    var xhr = $.ajax({
+        type: 'POST',
         url: 'https://demo.noos.cloud:9001/face_detection',
         headers: {
             'User-Token': 'your_user',
-            'Accept-Token': 'your_pass'
+            'Accept-Token': 'your_password'
         },
         xhrFields: {
-            withCredentials: true
+            withCredentials: false
         },
         data: form_data,
         processData: false,
         contentType: false
     }).done(function(json) {
-        $('#result').text(json);
+        var myJSON = JSON.stringify(json);
+        $('#result').text(myJSON);
     }).fail(function(xhr, textStatus, errorThrown) {
         $('#result').text('Error!');
         console.log('xhr', xhr);
